@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import '../App.css';
+import Button from 'react-bootstrap/Button';
+import NumberFormat from 'react-number-format';
 
 const count_LS = 'count';
 export default class Decimalcounter extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { seconds: parseFloat(localStorage.getItem('count')) || parseFloat(1000.00).toFixed(2) };
+    this.state = { 
+      seconds: parseFloat(localStorage.getItem('count')) || parseFloat(1.00).toFixed(2)
+    };
   }
   tick() {
     if (this.state.seconds < 1000000000) {
@@ -19,17 +23,24 @@ export default class Decimalcounter extends Component {
   }
 
   componentDidMount() {
+    localStorage.getItem('count');
+    this.setState({count: parseFloat(this.state.seconds).toFixed(2)});
     this.interval = setInterval(() => this.tick(), 1000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // }
+  handleload(){
+    this.setState({count: parseFloat(this.state.seconds).toFixed(2)});
+      localStorage.setItem(count_LS, parseFloat(this.state.seconds).toFixed(2));
   }
 
     render() {
+      const count = (this.state.count).toFixed(2);
         return (
             <div>
-                <button id="counter-btn"><p>{this.state.count}</p></button>
+              <Button id="counter-btn" onLoad={this.handleload}><p><NumberFormat value={count} displayType={'text'} thousandSeparator={true} /></p></Button>
             </div>
         )
     }
