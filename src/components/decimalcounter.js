@@ -29,7 +29,7 @@ export default class Decimalcounter extends Component {
     render() {
         return (
             <div>
-                <button id="counter-btn"><p>{(localStorage.getItem('count'))}</p></button>
+                <button id="counter-btn"><p>{this.state.count}</p></button>
             </div>
         )
     }
