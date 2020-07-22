@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-const count_LS = 'count';
+const count_LS = 'count_LS';
 export default class Decimalcounter extends Component {
   constructor(props) {
     super(props);
 
     this.state = { 
-      seconds: parseFloat(localStorage.getItem('count')) || 1000.00
+      count: parseFloat(localStorage.getItem('count')) || 1000.00
     };
+    this.tick = this.tick.bind(this);
+    this.resetcount = this.resetcount.bind(this);
   }
   tick() {
-    if (this.state.seconds < 1000000000) {
+    if (this.state.count < 1000000000) {
       this.setState(prevState => ({
-        seconds: prevState.seconds + .05
+        count: prevState.count + .05
       }));
-      localStorage.setItem(count_LS, parseFloat(this.state.seconds).toFixed(2));
+      localStorage.setItem(count_LS, parseFloat(this.state.count).toFixed(2));
     }
   }
   componentDidMount() {
@@ -24,14 +26,14 @@ export default class Decimalcounter extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  resetcount = (e) => {
+  resetcount() {
     localStorage.clear();
-    this.setState({seconds: 1000.00});
+    this.setState({count: 1000.00});
   }
   render() {
       return (
         <div>
-          <button id="counter-btn"><p>{(this.state.seconds).toFixed(2)}</p></button>
+          <button id="counter-btn"><p>{(this.state.count).toFixed(2)}</p></button>
           <div><button id="reset-btn" onClick={this.resetcount}>Reset</button></div>
         </div>
       )
