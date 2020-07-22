@@ -7,7 +7,7 @@ export default class Decimalcounter extends Component {
     super(props);
 
     this.state = { 
-      count: parseFloat(localStorage.getItem('count')) || 1000.00
+      count: parseFloat(localStorage.getItem('count_LS')) || 1000.00
     };
     this.tick = this.tick.bind(this);
     this.resetcount = this.resetcount.bind(this);
