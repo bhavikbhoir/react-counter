@@ -9,10 +9,10 @@ export default class Decimalcounter extends Component {
     this.state = { 
       count: parseFloat(localStorage.getItem('count_LS')) || 1000.00
     };
-    this.tick = this.tick.bind(this);
+    this.handlecount = this.handlecount.bind(this);
     this.resetcount = this.resetcount.bind(this);
   }
-  tick() {
+  handlecount() {
     if (this.state.count < 1000000000) {
       this.setState(prevState => ({
         count: prevState.count + .05
@@ -21,7 +21,7 @@ export default class Decimalcounter extends Component {
     }
   }
   componentDidMount() {
-    this.interval = setInterval(() => this.tick(), 1000);
+    this.interval = setInterval(() => this.handlecount(), 1000);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
